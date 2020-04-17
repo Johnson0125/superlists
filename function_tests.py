@@ -31,12 +31,16 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('buy peacock feathers')
 
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        # time.sleep(10)
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name("tr")
-        self.assertTrue(any(row.text == '1:buy peacock features' for row in rows))
+        self.assertTrue(any(row.text == '1:buy peacock features' for row in rows),
+                        f"New to-do item did not appear in the table. Contents were:\n{table.text}")
 
+        self.assertIn('1:buy perceock features',[row.text for row in rows])
+        self.assertIn('2:Use peacock features to make a fly',
+                      [row.text for row in rows])
         self.fail('finish the test!')
 
 
